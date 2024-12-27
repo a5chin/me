@@ -1,0 +1,83 @@
+site_name: a5chin
+
+theme:
+  name: material
+  logo: img/a5chin.jpg
+  favicon: img/a5chin.jpg
+
+  icon:
+    repo: fontawesome/brands/github
+
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      primary: blue grey
+      scheme: light
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      primary: blue grey
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+  features:
+    - content.code.copy
+    - navigation.expand
+    - navigation.indexes
+    - navigation.top
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - pymdownx.blocks.caption
+  - pymdownx.highlight:
+      linenums: true
+  - pymdownx.keys
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+repo_url: https://github.com/a5chin/me
+repo_name: a5chin/me
+
+plugins:
+  - i18n:
+      docs_structure: suffix
+      languages:
+        - locale: ja
+          default: true
+          name: 日本語
+          build: true
+        - locale: en
+          name: English
+          build: true
+          nav_translations:
+            a5chin について: About a5chin
+            技術スタック: Skills
+            ライセンス: License
+
+nav:
+  - a5chin について:
+      - index.md
+      - 技術スタック: skills/index.md
+  - ライセンス: license.md
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/a5chin
+      name: a5chin on GitHub
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/a5chin/
+      name: a5chin on LinkedIn
+    - icon: fontawesome/brands/x-twitter
+      link: https://x.com/a5chin
+      name: a5chin on X
+
+copyright: Copyright &copy; 2024 a5chin
