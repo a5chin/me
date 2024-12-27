@@ -1,12 +1,13 @@
 site_name: a5chin
 site_url: https://a5chin.github.io/me
-repo_url: https://github.com/a5chin/me
 repo_name: a5chin/me
+repo_url: https://github.com/a5chin/me
 
 theme:
   name: material
-  logo: img/a5chin.jpg
+
   favicon: img/a5chin.jpg
+  logo: img/a5chin.jpg
 
   icon:
     repo: fontawesome/brands/github
