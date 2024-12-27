@@ -1,4 +1,7 @@
 site_name: a5chin
+site_url: https://a5chin.github.io/me
+repo_url: https://github.com/a5chin/me
+repo_name: a5chin/me
 
 theme:
   name: material
@@ -41,9 +44,6 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
-
-repo_url: https://github.com/a5chin/me
-repo_name: a5chin/me
 
 plugins:
   - i18n:
