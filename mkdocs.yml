@@ -48,6 +48,9 @@ repo_name: a5chin/me
 plugins:
   - i18n:
       docs_structure: suffix
+      fallback_to_default: true
+      reconfigure_material: true
+      reconfigure_search: true
       languages:
         - locale: ja
           default: true
