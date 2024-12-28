@@ -47,6 +47,7 @@ markdown_extensions:
       alternate_style: true
 
 plugins:
+  - search
   - i18n:
       docs_structure: suffix
       fallback_to_default: true
