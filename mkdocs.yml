@@ -63,13 +63,17 @@ plugins:
           build: true
           nav_translations:
             a5chin について: About a5chin
+            OSS 貢献: OSS Contributions
             技術スタック: Skills
+            制作物: Works
             ライセンス: License
 
 nav:
   - a5chin について:
       - index.md
       - 技術スタック: skills/index.md
+      - 制作物: works/index.md
+  - OSS 貢献: oss/index.md
   - ライセンス: license.md
 
 extra:
