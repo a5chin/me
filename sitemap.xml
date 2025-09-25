@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <url>
+        <loc>https://a5chin.github.io/me/</loc>
+        <lastmod>2025-09-25</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="ja" href="https://a5chin.github.io/me/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://a5chin.github.io/me/en/"/>
+    </url>
+    <url>
+        <loc>https://a5chin.github.io/me/license/</loc>
+        <lastmod>2025-09-25</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="ja" href="https://a5chin.github.io/me/license/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://a5chin.github.io/me/en/license/"/>
+    </url>
+    <url>
+        <loc>https://a5chin.github.io/me/oss/</loc>
+        <lastmod>2025-09-25</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="ja" href="https://a5chin.github.io/me/oss/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://a5chin.github.io/me/en/oss/"/>
+    </url>
+    <url>
+        <loc>https://a5chin.github.io/me/skills/</loc>
+        <lastmod>2025-09-25</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="ja" href="https://a5chin.github.io/me/skills/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://a5chin.github.io/me/en/skills/"/>
+    </url>
+    <url>
+        <loc>https://a5chin.github.io/me/works/</loc>
+        <lastmod>2025-09-25</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="ja" href="https://a5chin.github.io/me/works/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://a5chin.github.io/me/en/works/"/>
+    </url>
+    <url>
+        <loc>https://a5chin.github.io/me/en/</loc>
+        <lastmod>2025-09-25</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://a5chin.github.io/me/en/"/>
+        <xhtml:link rel="alternate" hreflang="ja" href="https://a5chin.github.io/me/"/>
+    </url>
+    <url>
+        <loc>https://a5chin.github.io/me/en/license/</loc>
+        <lastmod>2025-09-25</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://a5chin.github.io/me/en/license/"/>
+        <xhtml:link rel="alternate" hreflang="ja" href="https://a5chin.github.io/me/license/"/>
+    </url>
+    <url>
+        <loc>https://a5chin.github.io/me/en/oss/</loc>
+        <lastmod>2025-09-25</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://a5chin.github.io/me/en/oss/"/>
+        <xhtml:link rel="alternate" hreflang="ja" href="https://a5chin.github.io/me/oss/"/>
+    </url>
+    <url>
+        <loc>https://a5chin.github.io/me/en/skills/</loc>
+        <lastmod>2025-09-25</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://a5chin.github.io/me/en/skills/"/>
+        <xhtml:link rel="alternate" hreflang="ja" href="https://a5chin.github.io/me/skills/"/>
+    </url>
+    <url>
+        <loc>https://a5chin.github.io/me/en/works/</loc>
+        <lastmod>2025-09-25</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://a5chin.github.io/me/en/works/"/>
+        <xhtml:link rel="alternate" hreflang="ja" href="https://a5chin.github.io/me/works/"/>
+    </url>
+</urlset>
