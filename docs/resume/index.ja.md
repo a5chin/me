@@ -1,8 +1,32 @@
 # 職務経歴書
 
-## 職務要約（Executive Summary）
+## 職務要約
 
-MLOps エンジニアとして、ゲームタイトル（累積 640 万 NUU・DAU 20 万人）における ML 推論基盤を 0→1 で設計・構築。**技術的ハイライト**: ①Spanner の **CPU スパイク問題**（ML 推論結果書き戻し時に 100% 超過 → 2-4 Nodes に自動スケール）を**クエリ構造の根本的再設計**で解決し、**CPU 83% 削減** (30% → 5%)・**1 Node で安定稼働**、②特徴量生成パイプラインで **Dataflow によるログフィルタ 55% 削減** + **Window 集約**により **Cloud Run CPU 97% 削減**、③ScoreAPI に **TTL 付きインメモリキャッシュ**（24h）を導入し一時的なレイテンシ増加を改善。段階的スケールイン ($2.5k/day → $200/day) と詳細最適化 ($200 → $140/day) により **月額コスト $4.2k** で運用。GCP マネージドサービス（Spanner, Dataflow, Vertex AI Pipelines, Cloud Run）を組み合わせた疎結合アーキテクチャ、Python/Java/Terraform での実装。GCP Professional 認定、国際会議論文採択 (IWAIT 2023)、OSS 貢献 (Spanner AutoScaler)。
+MLOps エンジニアとして、ゲームタイトル（累積 640 万 NUU・DAU 20 万人）における ML 推論基盤を 0→1 で設計・構築。
+
+**技術的ハイライト**:
+
+1. **Spanner CPU スパイク問題の解決**
+    - ML 推論結果書き戻し時に CPU 100% 超過 → 2-4 Nodes に自動スケール
+    - **クエリ構造の根本的再設計**で **CPU 83% 削減** (30% → 5%)・**1 Node で安定稼働**
+
+2. **特徴量生成パイプラインの最適化**
+    - **Dataflow によるログフィルタ 55% 削減** + **Window 集約**により **Cloud Run CPU 97% 削減**
+
+3. **ScoreAPI パフォーマンス最適化**
+    - **TTL 付きインメモリキャッシュ**（24h）を導入し一時的なレイテンシ増加を改善
+
+**コスト最適化**:
+
+- 段階的スケールイン ($2.5k/day → $200/day) と詳細最適化 ($200 → $140/day) により **月額コスト $4.2k** で運用
+
+**技術スタック**:
+
+- GCP マネージドサービス（Spanner, Dataflow, Vertex AI Pipelines, Cloud Run）を組み合わせた疎結合アーキテクチャ、Python/Java/Terraform での実装
+
+**その他**:
+
+- GCP Professional 認定、国際会議論文採択 (IWAIT 2023)、OSS 貢献 (Spanner AutoScaler)
 
 ---
 
@@ -73,8 +97,8 @@ MLOps エンジニアとして、ゲームタイトル（累積 640 万 NUU・DA
 - **Container**: Docker
 - **CI/CD**: GitHub Actions
 - **ML Workflow**
-  - Kubeflow
-  - Vertex AI Pipelines
+    - Kubeflow
+    - Vertex AI Pipelines
 
 ### MLOps 専門領域
 - リアルタイム・バッチ推論システムの設計・実装
@@ -174,33 +198,33 @@ MLOps エンジニアとして、ゲームタイトル（累積 640 万 NUU・DA
 
 **分析プロセス**:
 1. **Query Insights での可視化**
-   - 書き戻しクエリが 500ms 以上のレイテンシ
-   - EXPLAIN PLAN で Full Table Scan を検出
+    - 書き戻しクエリが 500ms 以上のレイテンシ
+    - EXPLAIN PLAN で Full Table Scan を検出
 
 2. **体系的なクエリ最適化アプローチ**
 
-   **Baseline**: CPU 30% (平常時)、100% 超過（ML 推論結果書き戻し時）
+    **Baseline**: CPU 30% (平常時)、100% 超過（ML 推論結果書き戻し時）
 
-   **クエリ構造の根本的な再設計**:
+    **クエリ構造の根本的な再設計**:
 
-   **Before** (CPU 30%, スパイク時 100% 超過):
-   - 複数の CTE (WITH 句) による段階的な処理
-   - 同じテーブルを **複数回スキャン**（異なる条件で個別に取得）
-   - LEFT OUTER JOIN による結合処理
-   - 複数段階の集約処理
+    **Before** (CPU 30%, スパイク時 100% 超過):
+    - 複数の CTE (WITH 句) による段階的な処理
+    - 同じテーブルを **複数回スキャン**（異なる条件で個別に取得）
+    - LEFT OUTER JOIN による結合処理
+    - 複数段階の集約処理
 
-   **After** (CPU 5%):
-   - CTE の数を削減し、処理を統合
-   - **1 回のスキャンで必要なデータを全て取得**
-   - JOIN の排除（条件付き集計関数で代替）
-   - 効率的な GROUP BY による集約
+    **After** (CPU 5%):
+    - CTE の数を削減し、処理を統合
+    - **1 回のスキャンで必要なデータを全て取得**
+    - JOIN の排除（条件付き集計関数で代替）
+    - 効率的な GROUP BY による集約
 
-   **改善ポイント**:
-   1. **スキャン回数削減**: 複数回 → 1 回 (**I/O コスト大幅削減**)
-   2. **JOIN 排除**: LEFT OUTER JOIN → 条件付き集計関数
-   3. **効率的な集約**: 処理の統合により中間データ削減
+    **改善ポイント**:
+    1. **スキャン回数削減**: 複数回 → 1 回 (**I/O コスト大幅削減**)
+    2. **JOIN 排除**: LEFT OUTER JOIN → 条件付き集計関数
+    3. **効率的な集約**: 処理の統合により中間データ削減
 
-   **最終成果**: CPU 30% → 5% (**83% 削減**、100% スパイクも解消)
+    **最終成果**: CPU 30% → 5% (**83% 削減**、100% スパイクも解消)
 
 #### 2. 特徴量生成パイプラインの最適化: Dataflow + Cloud Run
 
@@ -210,19 +234,19 @@ MLOps エンジニアとして、ゲームタイトル（累積 640 万 NUU・DA
 
 **アーキテクチャ設計の洞察**:
 1. **Dataflow での早期フィルタリング**:
-   - 問題: 全ての行動ログを Cloud Run に送ると、不要なデータ処理で CPU 浪費
-   - 解決: Dataflow でログを **55% 削減**（特徴量生成に不要なログを early filtering）
-   - 効果: 下流の Cloud Run とSpanner の負荷を大幅削減
+    - 問題: 全ての行動ログを Cloud Run に送ると、不要なデータ処理で CPU 浪費
+    - 解決: Dataflow でログを **55% 削減**（特徴量生成に不要なログを early filtering）
+    - 効果: 下流の Cloud Run とSpanner の負荷を大幅削減
 
 2. **Window 集約によるバッチ化**:
-   - 問題: 1 イベントごとに Spanner に書き込むと、往復回数が多く負荷が高い
-   - 解決: Dataflow で時間ウィンドウ（数秒〜数十秒）を設定し、ある程度まとまった単位で処理
-   - 効果: Cloud Run から Spanner への書き込み回数削減、CPU 効率化
+    - 問題: 1 イベントごとに Spanner に書き込むと、往復回数が多く負荷が高い
+    - 解決: Dataflow で時間ウィンドウ（数秒〜数十秒）を設定し、ある程度まとまった単位で処理
+    - 効果: Cloud Run から Spanner への書き込み回数削減、CPU 効率化
 
 3. **Pub/Sub による疎結合**:
-   - Dataflow → Cloud Run 間を Pub/Sub で分離
-   - Cloud Run が Pub/Sub からトリガーされ、集約済みデータを処理
-   - リトライ、スケーリングが独立して動作
+    - Dataflow → Cloud Run 間を Pub/Sub で分離
+    - Cloud Run が Pub/Sub からトリガーされ、集約済みデータを処理
+    - リトライ、スケーリングが独立して動作
 
 **成果**:
 - **Cloud Run (特徴量集計) の CPU 使用率 97% 削減**
@@ -241,8 +265,8 @@ MLOps エンジニアとして、ゲームタイトル（累積 640 万 NUU・DA
 - **問題提起**: 「全ての推論をリアルタイムで行う必要があるか?」
 - **分析**: ユーザーの行動ログを分析し、即時性が求められるパーソナライゼーション（プレイ中のコンテンツ配信）と、日次更新で十分なレコメンデーション（ログイン時の表示）を分離
 - **技術的意思決定**:
-  - リアルタイム推論: Cloud Run + Spanner（低レイテンシが必須）
-  - バッチ推論: Vertex AI Pipelines + Dataflow（コスト効率優先）
+    - リアルタイム推論: Cloud Run + Spanner（低レイテンシが必須）
+    - バッチ推論: Vertex AI Pipelines + Dataflow（コスト効率優先）
 - **成果**: ユーザー影響を最小化しつつ、インフラコストを大幅削減
 
 **この意思決定の価値**:
@@ -260,11 +284,11 @@ MLOps エンジニアとして、ゲームタイトル（累積 640 万 NUU・DA
 
 **設計判断**:
 - **TTL 設定**: 24 時間
-  - 根拠: コンテンツの更新頻度が日次のため、24 時間で十分な鮮度を保てる
-  - トレードオフ: 鮮度 vs レイテンシ改善を考慮した最適値
+    - 根拠: コンテンツの更新頻度が日次のため、24 時間で十分な鮮度を保てる
+    - トレードオフ: 鮮度 vs レイテンシ改善を考慮した最適値
 - **キャッシュ戦略**:
-  - キャッシュヒット時: インメモリから即座に返却
-  - キャッシュミス時のみ: Spanner から読み取り、キャッシュに保存
+    - キャッシュヒット時: インメモリから即座に返却
+    - キャッシュミス時のみ: Spanner から読み取り、キャッシュに保存
 - **メモリ管理**: LRU (Least Recently Used) による自動削除でメモリ使用量を制御
 
 **技術的意義**:
@@ -282,13 +306,13 @@ MLOps エンジニアとして、ゲームタイトル（累積 640 万 NUU・DA
 **リリース日のコスト爆発からの段階的回復**:
 
 1. **初期状態: $2,500/day**
-   - ゲームリリース日の想定を超えるトラフィック
-   - 安全マージンを取った過剰プロビジョニング
+    - ゲームリリース日の想定を超えるトラフィック
+    - 安全マージンを取った過剰プロビジョニング
 
 2. **段階的スケールイン: $200/day（92% 削減）**
-   - リリース後の実トラフィックを詳細に分析
-   - Cloud Run インスタンス数上限・Spanner ノード数を段階的に削減
-   - 監視メトリクス（レイテンシ、エラー率）を注視しながら安全に縮退
+    - リリース後の実トラフィックを詳細に分析
+    - Cloud Run インスタンス数上限・Spanner ノード数を段階的に削減
+    - 監視メトリクス（レイテンシ、エラー率）を注視しながら安全に縮退
 
 3. **詳細最適化: $140/day（さらに 30% 削減）**
 
@@ -314,20 +338,20 @@ MLOps エンジニアとして、ゲームタイトル（累積 640 万 NUU・DA
 
 **アプローチ**:
 1. **CI/CD パイプラインの整備**
-   - GitHub Actions による自動テスト・ビルド・デプロイパイプライン構築
-   - Terraform による Infrastructure as Code（インフラ変更の自動化）
-   - コンテナイメージの自動ビルド・Artifact Registry へのプッシュ
-   - 自動ロールバック機能の実装
+    - GitHub Actions による自動テスト・ビルド・デプロイパイプライン構築
+    - Terraform による Infrastructure as Code（インフラ変更の自動化）
+    - コンテナイメージの自動ビルド・Artifact Registry へのプッシュ
+    - 自動ロールバック機能の実装
 
 2. **AI による自動化**
-   - Claude Code や GitHub Copilot を活用したコード生成・レビュー支援
-   - 定型的なテストコード生成の自動化
-   - ドキュメント生成の支援
+    - Claude Code や GitHub Copilot を活用したコード生成・レビュー支援
+    - 定型的なテストコード生成の自動化
+    - ドキュメント生成の支援
 
 3. **標準化と再利用性の向上**
-   - 特徴量定義のテンプレート化
-   - 共通ライブラリの整備（Python パッケージ化）
-   - 開発環境の標準化（DevContainer, uv による環境管理）
+    - 特徴量定義のテンプレート化
+    - 共通ライブラリの整備（Python パッケージ化）
+    - 開発環境の標準化（DevContainer, uv による環境管理）
 
 **成果**:
 - デプロイ作業時間の大幅短縮（体感的に数時間 → 数分レベル）
@@ -384,14 +408,14 @@ MLOps エンジニアとして、ゲームタイトル（累積 640 万 NUU・DA
 
 **具体的な関心**:
 - **分散合意アルゴリズム**: Paxos/Raft の理論を深く学び、実装経験を積みたい
-  - 現在: Spanner の挙動を外から観察
-  - 次: 分散データベースを自分で設計・実装し、トレードオフを体感
+    - 現在: Spanner の挙動を外から観察
+    - 次: 分散データベースを自分で設計・実装し、トレードオフを体感
 - **物理時刻同期**: TrueTime のような機構がなぜ必要か、どう実装するか
-  - GPS/原子時計を使った時刻同期の実践
-  - 時刻のずれが分散システムに与える影響の定量的理解
+    - GPS/原子時計を使った時刻同期の実践
+    - 時刻のずれが分散システムに与える影響の定量的理解
 - **グローバルトランザクション**: マルチリージョンでの一貫性とレイテンシのトレードオフ
-  - 現在: 東京リージョンのみ
-  - 次: グローバルユーザーに対する最適なデータ配置戦略
+    - 現在: 東京リージョンのみ
+    - 次: グローバルユーザーに対する最適なデータ配置戦略
 
 **Why this matters to me**:
 Spanner を使いこなすだけでなく、**"なぜそう設計されているか"** を理解することで、次世代の分散システムを設計できるエンジニアになりたい
@@ -401,20 +425,20 @@ Spanner を使いこなすだけでなく、**"なぜそう設計されている
 **現在の限界**:
 - DAU 20 万人で月額 $4.2k のコストを達成
 - しかし、**10 倍のスケール（DAU 200 万人）になったら？**
-  - 単純計算: $42k/月（現実的には非線形に増大）
-  - Spanner の read/write スループット限界
-  - ML モデルサイズとレイテンシのトレードオフ
+    - 単純計算: $42k/月（現実的には非線形に増大）
+    - Spanner の read/write スループット限界
+    - ML モデルサイズとレイテンシのトレードオフ
 
 **挑戦したい技術領域**:
 - **モデル圧縮**: 量子化・蒸留・pruning による推論速度向上
-  - 現在: フルサイズモデルをそのまま推論
-  - 次: 精度を維持しつつ、10 倍高速な推論を実現
+    - 現在: フルサイズモデルをそのまま推論
+    - 次: 精度を維持しつつ、10 倍高速な推論を実現
 - **オンライン学習**: バッチ学習の限界を超える
-  - 現在: 日次バッチで学習 → デプロイ
-  - 次: ユーザーの行動を即座に反映する継続学習
+    - 現在: 日次バッチで学習 → デプロイ
+    - 次: ユーザーの行動を即座に反映する継続学習
 - **Observability**: 数百万 DAU でのモデル挙動の可視化
-  - 現在: 基本的なメトリクス（レイテンシ、エラー率）
-  - 次: Feature drift、Prediction distribution shift の自動検知
+    - 現在: 基本的なメトリクス（レイテンシ、エラー率）
+    - 次: Feature drift、Prediction distribution shift の自動検知
 
 **本質的な問い**:
 DAU 20 万人 → 200 万人 → 2000 万人と成長するとき、**どこがボトルネックになり、どう解決するか？** を実践で学びたい
@@ -431,9 +455,9 @@ DAU 20 万人 → 200 万人 → 2000 万人と成長するとき、**どこが�
 
 **研究成果**:
 - **国際会議論文採択**: [Liver tumor detection and classification from abdominal ultrasound images with centernet using contrastive learning](https://www.spiedigitallibrary.org/conference-proceedings-of-spie/12592/125920E/Liver-tumor-detection-and-classification-from-abdominal-ultrasound-images-with/10.1117/12.2662969.short)
-  - 著者: 原英吾, 道満恵介, 目加田慶人, 西田直生志, 工藤 正俊
-  - 会議: International Workshop on Advanced Image Technology (IWAIT) 2023, Jeju, Korea
-  - 発表年月: 2023 年 1 月
+    - 著者: 原英吾, 道満恵介, 目加田慶人, 西田直生志, 工藤 正俊
+    - 会議: International Workshop on Advanced Image Technology (IWAIT) 2023, Jeju, Korea
+    - 発表年月: 2023 年 1 月
 
 **技術要素**:
 - 深層学習（CenterNet アーキテクチャ）
@@ -443,7 +467,7 @@ DAU 20 万人 → 200 万人 → 2000 万人と成長するとき、**どこが�
 
 #### 登壇活動
 - [ML Career Vision #1 「新卒MLエンジニアのキャリアヴィジョン」](https://elith.connpass.com/event/272218/)（2023 年 2 月）
-  - 新卒 ML エンジニアとしてのキャリア形成について登壇
+    - 新卒 ML エンジニアとしてのキャリア形成について登壇
 
 ### 愛知県立刈谷高等学校
 **2015 年 4 月 - 2018 年 3 月**
@@ -465,10 +489,10 @@ DAU 20 万人 → 200 万人 → 2000 万人と成長するとき、**どこが�
 
 **技術スタック:**
 - Python
-  - PyTorch
-  - Scikit-learn
-  - Pandas
-  - OpenCV
+    - PyTorch
+    - Scikit-learn
+    - Pandas
+    - OpenCV
 
 **学び:**
 - 実務レベルの ML モデル開発プロセスの理解
@@ -501,35 +525,35 @@ DAU 20 万人 → 200 万人 → 2000 万人と成長するとき、**どこが�
 
 **Zenn**（DeNA 公式アカウント含む）:
 - [Python 開発環境を uv で統一管理する](https://zenn.dev/dena/articles/python_env_with_uv)
-  - Python の次世代パッケージマネージャー uv の実践的な活用方法
-  - DeNA 社内での標準化事例
+    - Python の次世代パッケージマネージャー uv の実践的な活用方法
+    - DeNA 社内での標準化事例
 - [Rye + DevContainer で Python 開発環境を標準化](https://zenn.dev/dena/articles/rye_python_in_devcontainer)
-  - チーム開発における Python 環境の標準化手法
-  - 再現可能な開発環境構築のベストプラクティス
+    - チーム開発における Python 環境の標準化手法
+    - 再現可能な開発環境構築のベストプラクティス
 - [Terraform + DevContainer で IaC 開発環境を標準化](https://zenn.dev/dena/articles/terraform_with_devcontainer)
-  - Terraform 開発のベストプラクティスと環境構築
+    - Terraform 開発のベストプラクティスと環境構築
 
 **Qiita**:
 - [ナンプレを AI に解かせてみる](https://qiita.com/a5chin/items/6d35283a54a1022f9b24)
-  - 制約充足問題としての数独解法の AI 実装
+    - 制約充足問題としての数独解法の AI 実装
 
 ### 公開プロジェクト
 
 #### MLOps・インフラ系
 - **[ml-pipelines](https://github.com/a5chin/ml-pipelines)**: Kubeflow Pipelines (KFP) の production-ready テンプレート
-  - **技術**: Python 3.10+, Kubeflow, uv, ty, Ruff, SQLFluff, Pydantic, Docker, Pytest, GitHub Actions
-  - **特徴**: タスクベースのモジュラー設計、マルチ環境対応（dev/prod）、型安全な設定管理、CI/CD 完備
-  - **価値**: 実務で培った MLOps ベストプラクティスをテンプレート化し、コミュニティに還元
+    - **技術**: Python 3.10+, Kubeflow, uv, ty, Ruff, SQLFluff, Pydantic, Docker, Pytest, GitHub Actions
+    - **特徴**: タスクベースのモジュラー設計、マルチ環境対応（dev/prod）、型安全な設定管理、CI/CD 完備
+    - **価値**: 実務で培った MLOps ベストプラクティスをテンプレート化し、コミュニティに還元
 - **[terraform-template](https://github.com/a5chin/terraform-template)**: Terraform 開発環境の標準化テンプレート
-  - IaC 開発のベストプラクティスと DevContainer による環境統一
+    - IaC 開発のベストプラクティスと DevContainer による環境統一
 
 #### 開発環境標準化
 - **[python-uv](https://github.com/a5chin/python-uv)**: Python 開発環境の標準化テンプレート
-  - 次世代パッケージマネージャー uv を活用した高速・再現可能な環境構築
+    - 次世代パッケージマネージャー uv を活用した高速・再現可能な環境構築
 
 #### 機械学習応用
 - **[NumberPlaceSolver](https://github.com/a5chin/NumberPlaceSolver)**: AI によるナンプレ（数独）ソルバー
-  - 制約充足問題への機械学習アプローチの実装例
+    - 制約充足問題への機械学習アプローチの実装例
 
 ### 技術コミュニティ活動
 - GitHub での継続的な OSS 活動
