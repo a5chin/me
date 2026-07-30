@@ -5,6 +5,7 @@
 MLOps エンジニアとして、ゲームタイトル（累積 640 万 NUU・DAU 20 万人）における ML 推論基盤を 0→1 で設計・構築。
 
 **技術的成果**:
+
 1. **Spanner CPU スパイク解決**: クエリ構造再設計で **CPU 83% 削減** (30% → 5%)、1 Node で安定稼働
 2. **特徴量生成パイプライン最適化**: Dataflow ログフィルタ 55% 削減 + Window 集約により **Cloud Run CPU 97% 削減**
 3. **ScoreAPI 最適化**: TTL 付きインメモリキャッシュ（24h）で一時的なレイテンシ増加を改善
@@ -186,11 +187,13 @@ MLOps エンジニアとして、ゲームタイトル（累積 640 万 NUU・DA
 #### 1. グローバル分散システムへの深化
 
 **現在の課題認識**:
+
 - Spanner を 3 年間運用し、**ホットスポット問題**や**クエリ最適化**を経験
 - しかし、あくまで **"利用者"** としての視点
 - **"設計者"** としての視点（内部実装の理解）が不足していると痛感
 
 **具体的な関心**:
+
 - **分散合意アルゴリズム**: Paxos/Raft の理論を深く学び、実装経験を積みたい
     - 現在: Spanner の挙動を外から観察
     - 次: 分散データベースを自分で設計・実装し、トレードオフを体感
@@ -207,6 +210,7 @@ Spanner を使いこなすだけでなく、**"なぜそう設計されている
 #### 2. ML システムのスケーラビリティ - 次の桁へ
 
 **現在の限界**:
+
 - DAU 20 万人で月額 $4.2k のコストを達成
 - しかし、**10 倍のスケール（DAU 200 万人）になったら？**
     - 単純計算: $42k/月（現実的には非線形に増大）
@@ -214,6 +218,7 @@ Spanner を使いこなすだけでなく、**"なぜそう設計されている
     - ML モデルサイズとレイテンシのトレードオフ
 
 **挑戦したい技術領域**:
+
 - **モデル圧縮**: 量子化・蒸留・pruning による推論速度向上
     - 現在: フルサイズモデルをそのまま推論
     - 次: 精度を維持しつつ、10 倍高速な推論を実現
@@ -238,12 +243,14 @@ DAU 20 万人 → 200 万人 → 2000 万人と成長するとき、**どこが�
 **研究テーマ**: 医療画像 AI（腹部超音波画像からの肝腫瘍検出・分類）
 
 **研究成果**:
+
 - **国際会議論文採択**: [Liver tumor detection and classification from abdominal ultrasound images with centernet using contrastive learning](https://www.spiedigitallibrary.org/conference-proceedings-of-spie/12592/125920E/Liver-tumor-detection-and-classification-from-abdominal-ultrasound-images-with/10.1117/12.2662969.short)
     - 著者: 原英吾, 道満恵介, 目加田慶人, 西田直生志, 工藤 正俊
     - 会議: International Workshop on Advanced Image Technology (IWAIT) 2023, Jeju, Korea
     - 発表年月: 2023 年 1 月
 
 **技術要素**:
+
 - 深層学習（CenterNet アーキテクチャ）
 - Contrastive Learning（対照学習）による特徴表現学習
 - 医療画像処理（超音波画像の前処理・データ拡張）
@@ -267,11 +274,13 @@ DAU 20 万人 → 200 万人 → 2000 万人と成長するとき、**どこが�
 学生時代から実務経験を積み、機械学習モデルの開発に従事。
 
 **主な業務:**
+
 - 機械学習モデルの設計・実装・評価
 - モデルの本番環境へのデプロイと運用
 - データパイプラインの構築
 
 **技術スタック:**
+
 - Python
     - PyTorch
     - Scikit-learn
@@ -279,6 +288,7 @@ DAU 20 万人 → 200 万人 → 2000 万人と成長するとき、**どこが�
     - OpenCV
 
 **学び:**
+
 - 実務レベルの ML モデル開発プロセスの理解
 - チーム開発・コードレビュー文化の体験
 
@@ -292,15 +302,18 @@ DAU 20 万人 → 200 万人 → 2000 万人と成長するとき、**どこが�
 **PR**: [https://github.com/cloudspannerecosystem/autoscaler/pull/196](https://github.com/cloudspannerecosystem/autoscaler/pull/196)
 
 **背景・課題**:
+
 - Google Cloud の公式 Spanner AutoScaler は Cloud Run Functions 1st Generation のみサポート
 - 2nd Generation は新アーキテクチャ（コンカレンシーモデル、起動時間など）で優位性があるが、未対応
 
 **実装内容**:
+
 - Cloud Run Functions 2nd Generation の新アーキテクチャに対応
 - イベントハンドラーのインターフェース変更に対応
 - 後方互換性を維持しながら、両世代をサポート
 
 **技術的意義**:
+
 - GCP の最新サービスへの追従
 - パフォーマンス・スケーラビリティの向上
 - コミュニティへの貢献（Google Cloud 公式エコシステムプロジェクト）
@@ -308,6 +321,7 @@ DAU 20 万人 → 200 万人 → 2000 万人と成長するとき、**どこが�
 ### 技術記事執筆
 
 **Zenn**（DeNA 公式アカウント含む）:
+
 - [Python 開発環境を uv で統一管理する](https://zenn.dev/dena/articles/python_env_with_uv)
     - Python の次世代パッケージマネージャー uv の実践的な活用方法
     - DeNA 社内での標準化事例
@@ -318,6 +332,7 @@ DAU 20 万人 → 200 万人 → 2000 万人と成長するとき、**どこが�
     - Terraform 開発のベストプラクティスと環境構築
 
 **Qiita**:
+
 - [ナンプレを AI に解かせてみる](https://qiita.com/a5chin/items/6d35283a54a1022f9b24)
     - 制約充足問題としての数独解法の AI 実装
 
