@@ -4,109 +4,37 @@
 
 MLOps エンジニアとして、ゲームタイトル（累積 640 万 NUU・DAU 20 万人）における ML 推論基盤を 0→1 で設計・構築。
 
-**技術的ハイライト**:
+**技術的成果**:
+1. **Spanner CPU スパイク解決**: クエリ構造再設計で **CPU 83% 削減** (30% → 5%)、1 Node で安定稼働
+2. **特徴量生成パイプライン最適化**: Dataflow ログフィルタ 55% 削減 + Window 集約により **Cloud Run CPU 97% 削減**
+3. **ScoreAPI 最適化**: TTL 付きインメモリキャッシュ（24h）で一時的なレイテンシ増加を改善
+4. **コスト最適化**: 段階的スケールイン + 詳細最適化により **月額コスト $4.2k** で運用（$2.5k/day → $140/day）
 
-1. **Spanner CPU スパイク問題の解決**
-    - ML 推論結果書き戻し時に CPU 100% 超過 → 2-4 Nodes に自動スケール
-    - **クエリ構造の根本的再設計**で **CPU 83% 削減** (30% → 5%)・**1 Node で安定稼働**
+**技術スタック**: GCP（Spanner, Dataflow, Vertex AI Pipelines, Cloud Run）、Python/Java/Terraform
 
-2. **特徴量生成パイプラインの最適化**
-    - **Dataflow によるログフィルタ 55% 削減** + **Window 集約**により **Cloud Run CPU 97% 削減**
-
-3. **ScoreAPI パフォーマンス最適化**
-    - **TTL 付きインメモリキャッシュ**（24h）を導入し一時的なレイテンシ増加を改善
-
-**コスト最適化**:
-
-- 段階的スケールイン ($2.5k/day → $200/day) と詳細最適化 ($200 → $140/day) により **月額コスト $4.2k** で運用
-
-**技術スタック**:
-
-- GCP マネージドサービス（Spanner, Dataflow, Vertex AI Pipelines, Cloud Run）を組み合わせた疎結合アーキテクチャ、Python/Java/Terraform での実装
-
-**その他**:
-
-- GCP Professional 認定、国際会議論文採択 (IWAIT 2023)、OSS 貢献 (Spanner AutoScaler)
+**資格・実績**: GCP Professional 認定、国際会議論文採択 (IWAIT 2023)、OSS 貢献 (Spanner AutoScaler)
 
 ---
 
 ## コアスキル・技術スタック
 
-### プログラミング言語・フレームワーク
-
-#### Python（主要言語）
-**開発ツール・品質管理:**
-- uv (パッケージ管理・環境構築)
-- ruff (高速 Linter/Formatter)
-- ty (超高速型チェッカー - Astral 社製、mypy の 10-100 倍高速)
-- pytest (テストフレームワーク)
-- pre-commit (Git フック管理)
-
-**Web フレームワーク:**
-- FastAPI (推論 API 実装)
-- Gunicorn (WSGI サーバー)
-- Pydantic (データバリデーション・型安全性)
-
-**データ処理・分析:**
-- Pandas (データ分析)
-- Polars (高速データフレーム処理)
-- dbt (データ変換・テスト)
-
-**機械学習:**
-- PyTorch (深層学習フレームワーク)
-- Kubeflow (ML パイプライン)
-
-#### Java
-- Apache Beam (Dataflow ストリーミング・バッチパイプライン実装)
-
-#### Terraform
-- IaC による GCP インフラ管理（全環境のコード化）
-
-#### Go
-- 補助的な開発経験（CLI ツール実装など）
+### プログラミング言語
+- **Python（主要）**: FastAPI, PyTorch, Pandas, Polars, dbt, Apache Beam / 開発: uv, ruff, ty, pytest, pre-commit
+- **Java**: Apache Beam（Dataflow パイプライン）
+- **Terraform**: IaC による GCP インフラ管理
+- **Go**: CLI ツール実装
 
 ### Google Cloud Platform
-#### Compute
-- Cloud Run
-- Cloud Run Functions
-- Vertex AI Pipelines
+- **Compute**: Cloud Run, Vertex AI Pipelines
+- **Data**: BigQuery, Cloud Spanner, Cloud Storage
+- **Streaming**: Pub/Sub, Dataflow
+- **ML**: Vertex AI Workbench, Vertex AI Pipelines
+- **Ops**: Cloud Logging, Cloud Monitoring, Artifact Registry
 
-#### Data
-- BigQuery
-- Cloud Spanner
-- Cloud Storage
-- Firestore
-
-#### Streaming & ETL
-- Pub/Sub
-- Dataflow（Apache Beam）
-
-#### Ops & Monitoring
-- Cloud Logging
-- Cloud Monitoring
-- Artifact Registry
-- Eventarc
-- Cloud Scheduler
-
-#### ML
-- Vertex AI Workbench
-- Vertex AI Pipelines
-
-### インフラ・DevOps
-- **IaC**: Terraform
-- **Container**: Docker
-- **CI/CD**: GitHub Actions
-- **ML Workflow**
-    - Kubeflow
-    - Vertex AI Pipelines
-
-### MLOps 専門領域
-- リアルタイム・バッチ推論システムの設計・実装
-- 特徴量ストア（Feature Store）の構築・運用
-- ML パイプラインオーケストレーション
-- モデルデプロイ自動化
-- 監視・アラート設計
-- コスト最適化戦略
+### インフラ・DevOps・MLOps
+- **IaC**: Terraform / **Container**: Docker / **CI/CD**: GitHub Actions
+- **ML Workflow**: Kubeflow, Vertex AI Pipelines
+- **専門領域**: リアルタイム・バッチ推論、Feature Store、ML パイプラインオーケストレーション、モデルデプロイ自動化、コスト最適化
 
 ### 保有資格
 - [Google Cloud Certified - Associate Cloud Engineer](https://www.credly.com/badges/921248ee-3e36-48ab-a2eb-7984bc97e5ca/public_url)
@@ -189,185 +117,41 @@ MLOps エンジニアとして、ゲームタイトル（累積 640 万 NUU・DA
 
 ##### 技術的深掘り: Spanner 最適化の詳細
 
-#### 1. CPU スパイク問題の根本原因分析
+#### 1. Spanner CPU スパイク問題の解決
 
-**初期症状**:
-- 平常時 CPU 30% で安定
-- ML 推論結果の書き戻し時に突然 CPU 100% 超過
-- 自動スケーリングで 2-4 Nodes に増加、コスト急増
+**問題**: ML 推論結果書き戻し時に CPU 100% 超過、2-4 Nodes に自動スケール
 
-**分析プロセス**:
-1. **Query Insights での可視化**
-    - 書き戻しクエリが 500ms 以上のレイテンシ
-    - EXPLAIN PLAN で Full Table Scan を検出
+**解決**: クエリ構造の根本的再設計（複数回スキャン → 1回スキャン、JOIN 排除）
 
-2. **体系的なクエリ最適化アプローチ**
+**成果**: **CPU 83% 削減** (30% → 5%)、1 Node で安定稼働
 
-    **Baseline**: CPU 30% (平常時)、100% 超過（ML 推論結果書き戻し時）
+#### 2. 特徴量生成パイプラインの最適化
 
-    **クエリ構造の根本的な再設計**:
+**問題**: Cloud Run の CPU 負荷が高い
 
-    **Before** (CPU 30%, スパイク時 100% 超過):
-    - 複数の CTE (WITH 句) による段階的な処理
-    - 同じテーブルを **複数回スキャン**（異なる条件で個別に取得）
-    - LEFT OUTER JOIN による結合処理
-    - 複数段階の集約処理
+**解決**: Dataflow ログフィルタ（55% 削減）+ Window 集約 + Pub/Sub 疎結合
 
-    **After** (CPU 5%):
-    - CTE の数を削減し、処理を統合
-    - **1 回のスキャンで必要なデータを全て取得**
-    - JOIN の排除（条件付き集計関数で代替）
-    - 効率的な GROUP BY による集約
+**成果**: **Cloud Run CPU 97% 削減**
 
-    **改善ポイント**:
-    1. **スキャン回数削減**: 複数回 → 1 回 (**I/O コスト大幅削減**)
-    2. **JOIN 排除**: LEFT OUTER JOIN → 条件付き集計関数
-    3. **効率的な集約**: 処理の統合により中間データ削減
+#### 3. ScoreAPI のパフォーマンス最適化
 
-    **最終成果**: CPU 30% → 5% (**83% 削減**、100% スパイクも解消)
+**問題**: トラフィック集中時にレイテンシ増加
 
-#### 2. 特徴量生成パイプラインの最適化: Dataflow + Cloud Run
+**解決**: TTL 付きインメモリキャッシュ（24h、LRU）導入
 
-**課題**:
-- 行動ログを元に特徴量を生成し、Spanner に書き込む処理で Cloud Run の CPU 負荷が高い
-- リアルタイム性を保ちつつ、どうコストを削減するか
+**成果**: レイテンシ改善、Spanner 負荷削減
 
-**アーキテクチャ設計の洞察**:
-1. **Dataflow での早期フィルタリング**:
-    - 問題: 全ての行動ログを Cloud Run に送ると、不要なデータ処理で CPU 浪費
-    - 解決: Dataflow でログを **55% 削減**（特徴量生成に不要なログを early filtering）
-    - 効果: 下流の Cloud Run とSpanner の負荷を大幅削減
+#### 4. コスト最適化
 
-2. **Window 集約によるバッチ化**:
-    - 問題: 1 イベントごとに Spanner に書き込むと、往復回数が多く負荷が高い
-    - 解決: Dataflow で時間ウィンドウ（数秒〜数十秒）を設定し、ある程度まとまった単位で処理
-    - 効果: Cloud Run から Spanner への書き込み回数削減、CPU 効率化
+**段階的な削減**: $2,500/day（リリース日）→ $200/day（段階的スケールイン、92% 削減）→ $140/day（詳細最適化、94% 削減）**
 
-3. **Pub/Sub による疎結合**:
-    - Dataflow → Cloud Run 間を Pub/Sub で分離
-    - Cloud Run が Pub/Sub からトリガーされ、集約済みデータを処理
-    - リトライ、スケーリングが独立して動作
+**施策**: Spanner クエリ最適化、Dataflow ログフィルタ、Cloud Run 課金モデル変更
 
-**成果**:
-- **Cloud Run (特徴量集計) の CPU 使用率 97% 削減**
-- Dataflow のログフィルタリングで **55% のデータ削減**
-- Spanner への書き込み負荷も削減（Window 集約の副次効果）
-- リアルタイム性（数秒の遅延）を維持しつつ、コスト効率を劇的に改善
+**成果**: **月額 $4.2k** で運用
 
-**技術的意義**:
-- 単純な「データを流す」パイプラインではなく、**戦略的な負荷分散**
-- ストリーミング処理における **Windowing の重要性** を実践で証明
-- マネージドサービス（Dataflow, Cloud Run, Pub/Sub）の適材適所な組み合わせ
+---
 
-#### 3. リアルタイム/バッチのハイブリッド設計
-
-**Data Scientist との技術的議論**:
-- **問題提起**: 「全ての推論をリアルタイムで行う必要があるか?」
-- **分析**: ユーザーの行動ログを分析し、即時性が求められるパーソナライゼーション（プレイ中のコンテンツ配信）と、日次更新で十分なレコメンデーション（ログイン時の表示）を分離
-- **技術的意思決定**:
-    - リアルタイム推論: Cloud Run + Spanner（低レイテンシが必須）
-    - バッチ推論: Vertex AI Pipelines + Dataflow（コスト効率優先）
-- **成果**: ユーザー影響を最小化しつつ、インフラコストを大幅削減
-
-**この意思決定の価値**:
-- 技術的な洞察（「リアルタイム」の定義を再考）が戦略的意思決定につながった事例
-- DS とのコラボレーションにより、技術とビジネスの最適解を発見
-
-#### 4. ScoreAPI のパフォーマンス最適化
-
-**課題**:
-- ScoreAPI（推論結果提供 API）が毎リクエスト全てのコンテンツを Spanner から読み込み
-- トラフィック集中時など、一時的に Spanner のレイテンシが増加
-- ユーザー体験への影響リスク
-
-**解決策: TTL 付きインメモリキャッシュの導入**
-
-**設計判断**:
-- **TTL 設定**: 24 時間
-    - 根拠: コンテンツの更新頻度が日次のため、24 時間で十分な鮮度を保てる
-    - トレードオフ: 鮮度 vs レイテンシ改善を考慮した最適値
-- **キャッシュ戦略**:
-    - キャッシュヒット時: インメモリから即座に返却
-    - キャッシュミス時のみ: Spanner から読み取り、キャッシュに保存
-- **メモリ管理**: LRU (Least Recently Used) による自動削除でメモリ使用量を制御
-
-**技術的意義**:
-- **レイテンシとスループットのトレードオフ理解**: TTL 設定で鮮度とパフォーマンスをバランス
-- **キャッシュ戦略の実践**: 読み取り頻度の高いデータに対する適切なキャッシュ層の設計
-- **Spanner 負荷分散**: 読み取り負荷をインメモリキャッシュに分散
-
-**成果**:
-- 一時的なレイテンシ増加を改善
-- Spanner への読み取り負荷削減
-- ユーザー体験の安定化
-
-#### 5. コスト最適化の全体像
-
-**リリース日のコスト爆発からの段階的回復**:
-
-1. **初期状態: $2,500/day**
-    - ゲームリリース日の想定を超えるトラフィック
-    - 安全マージンを取った過剰プロビジョニング
-
-2. **段階的スケールイン: $200/day（92% 削減）**
-    - リリース後の実トラフィックを詳細に分析
-    - Cloud Run インスタンス数上限・Spanner ノード数を段階的に削減
-    - 監視メトリクス（レイテンシ、エラー率）を注視しながら安全に縮退
-
-3. **詳細最適化: $140/day（さらに 30% 削減）**
-
-**最適化施策の詳細**:
-
-| 施策 | 詳細 | 効果 |
-|-----|------|------|
-| **Spanner クエリ最適化** | → 詳細は「[CPU スパイク問題の根本原因分析](#1-cpu-スパイク問題の根本原因分析)」参照<br>複数 CTE + JOIN → 1 回スキャン + GROUP BY に統合 | 主要因（ノード削減） |
-| **Dataflow 最適化** | → 詳細は「[特徴量生成パイプライン最適化](#2-特徴量生成パイプラインの最適化-dataflow--cloud-run)」参照 | ログ 55% 削減 |
-| **Cloud Run 課金モデル最適化** | 対象: 特徴量事前集計ワークロード<br>変更: Instance-based → Request-based<br>分析: 間欠的トラフィック → アイドル時間が長い → Request-based が有利 | $20/day 削減 |
-| **Cloud Logging 最適化** | ログレベル最適化、不要な verbose ログの削減 | 補助的削減 |
-
-**最終成果**:
-- **月額運用コスト**: $140/day（$4.2k/月）
-- **パフォーマンス維持**: レイテンシ・可用性を犠牲にせず達成
-
-#### 6. 開発効率化
-
-**課題**:
-- ML モデルの更新、特徴量の追加・変更が頻繁に発生
-- 手動デプロイやテストプロセスが属人化
-- デプロイに時間がかかり、DS の実験サイクルが遅延
-
-**アプローチ**:
-1. **CI/CD パイプラインの整備**
-    - GitHub Actions による自動テスト・ビルド・デプロイパイプライン構築
-    - Terraform による Infrastructure as Code（インフラ変更の自動化）
-    - コンテナイメージの自動ビルド・Artifact Registry へのプッシュ
-    - 自動ロールバック機能の実装
-
-2. **AI による自動化**
-    - Claude Code や GitHub Copilot を活用したコード生成・レビュー支援
-    - 定型的なテストコード生成の自動化
-    - ドキュメント生成の支援
-
-3. **標準化と再利用性の向上**
-    - 特徴量定義のテンプレート化
-    - 共通ライブラリの整備（Python パッケージ化）
-    - 開発環境の標準化（DevContainer, uv による環境管理）
-
-**成果**:
-- デプロイ作業時間の大幅短縮（体感的に数時間 → 数分レベル）
-- DS の実験サイクルの高速化
-- 属人性の排除、チーム全体の開発効率向上
-
-#### 定量的成果（インパクト指標）
-
-| 指標カテゴリ | 課題 | 解決アプローチ | 成果 |
-|------------|------|-------------|------|
-| **Spanner CPU スパイク問題** | ML 推論結果連携時に CPU 使用率が 100% を超過し、自動スケーリングで 2-4 Nodes に増加。ノード課金によるコスト増大 | **根本原因分析**: Query Insights でスロークエリを特定<br>**最適化**: クエリ構造の根本的再設計（4 CTE + LEFT JOIN → 2 CTE のみ、スキャン 2 回 → 1 回、JOIN 排除）<br>**アーキテクチャ改善**: リアルタイム/バッチ推論の分離 | **ノード数 75% 削減** (2-4 Nodes → 1 Node 安定稼働)<br>**CPU 83% 削減** (30% → 5%、100% スパイク解消)<br>これによりコスト削減の主要因を実現 |
-| **特徴量生成パイプライン最適化** | Cloud Run (特徴量集計) の CPU 負荷が高く、Spanner への書き込み頻度も多い | **Dataflow 早期フィルタ**: 不要ログを 55% 削減<br>**Window 集約**: 時間ウィンドウでバッチ化し、Spanner 書き込み回数削減<br>**Pub/Sub 疎結合**: コンポーネント間を非同期化 | **Cloud Run CPU 97% 削減**<br>**Dataflow ログ 55% 削減**<br>リアルタイム性（数秒遅延）を維持しつつ、コスト効率を劇的改善 |
-| **インフラコスト最適化** | **リリース日**: 過剰プロビジョニングで $2.5k/day<br>**段階的スケールイン後**: $200/day | **詳細最適化** ($200 → $140, **30% 削減**):<br>①Spanner クエリ最適化（主要因）<br>②Dataflow ログフィルタ最適化<br>③Cloud Run 課金モデル変更（特徴量集計: Instance → Request）**$20/day 削減** | **月額運用コスト**: $140/day（$4.2k/月）<br>**キーインサイト**: Spanner ノード削減（2-4 → 1）が最大の削減要因 |
-| **開発効率** | 手動デプロイ、属人化により DS の実験サイクルが遅延 | GitHub Actions + Terraform による完全自動化、AI 活用（Claude Code/Copilot） | デプロイ時間を大幅短縮、DS の実験サイクル高速化 |
-
-#### 学びと今後への展開
+### 学びと今後への展開
 
 | 観点 | 学び |
 |-----|------|
