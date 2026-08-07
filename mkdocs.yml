@@ -6,8 +6,8 @@ repo_url: https://github.com/a5chin/me
 theme:
   name: material
 
-  favicon: img/a5chin.jpg
-  logo: img/a5chin.jpg
+  favicon: img/a5chin64.png
+  logo: img/a5chin64.png
 
   icon:
     repo: fontawesome/brands/github
