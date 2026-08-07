@@ -1,5 +1,11 @@
 # Works
 
+## MLOps
+- Production-Ready Template for Kubeflow Pipelines
+    - GitHub: [https://github.com/a5chin/ml-pipelines](https://github.com/a5chin/ml-pipelines)
+    - Features: Task-based modular design, multi-environment support (dev/prod), type-safe configuration management, CI/CD ready
+    - Tech Stack: Python 3.11+, Kubeflow, uv, ty, Ruff, SQLFluff, Pydantic, Docker, Pytest, GitHub Actions
+
 ## Python
 - Standardizing Python Development Environments
     - GitHub: [https://github.com/a5chin/python-uv](https://github.com/a5chin/python-uv)

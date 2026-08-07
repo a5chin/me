@@ -6,8 +6,8 @@ repo_url: https://github.com/a5chin/me
 theme:
   name: material
 
-  favicon: img/a5chin.jpg
-  logo: img/a5chin.jpg
+  favicon: img/a5chin64.png
+  logo: img/a5chin64.png
 
   icon:
     repo: fontawesome/brands/github
@@ -63,6 +63,7 @@ plugins:
           build: true
           nav_translations:
             a5chin について: About a5chin
+            職務経歴書: Resume
             OSS 貢献: OSS Contributions
             技術スタック: Skills
             制作物: Works
@@ -73,6 +74,7 @@ nav:
       - index.md
       - 技術スタック: skills/index.md
       - 制作物: works/index.md
+  - 職務経歴書: resume/index.md
   - OSS 貢献: oss/index.md
   - ライセンス: license.md
 
